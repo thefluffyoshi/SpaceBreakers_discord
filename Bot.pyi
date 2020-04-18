@@ -36,12 +36,12 @@ async def on_message(message):
     #messages += 1
     id = client.get_guild(599461294428520490)
     channels = ["test", "bot-spam", "bot-spam-2", "test-2", "welcome"]
-    valid_users = ["thefluffyoshi#6195", "friend#5869", "adria#9936"]
+    valid_users = ["thefluffyoshi#6195", "friend#5869", "adria#9936", "silver~#2010", "raisinbran#6564", "clxudy#6666"]
 
     if str(message.channel) in channels and str(message.author) in valid_users:
-        if message.content.find("!hello") != -1:
+        if message.content.find("/hello") != -1:
             await message.channel.send("Hi")
-        elif message.content == "!users":
+        elif message.content == "/users":
             await message.channel.send(f"""# of Members: {id.member_count}""")
 #    else:
 #        print(f"""User: {message.author} tried to do command {message.content}, in channel {message.channel}""")

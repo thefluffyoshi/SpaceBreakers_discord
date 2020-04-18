@@ -22,12 +22,23 @@ client = discord.Client()
             #await asyncio.sleep(5)
 
 @client.event
+async def on_member_update(before, after):
+    n = after.nick
+    if n:
+        if n.lower().count("yoshi") > 0:
+            last = before.nick
+            if last:
+                await after.edit(nick=last)
+            else:
+                await after.edit(nick="fake yosh")
+
+@client.event
 async def on_member_join(member):
     #global joined
     #joined += 1
 
     for channel in member.guild.channels:
-        if str(channel) == "welcome":
+        if channel == "welcome":
             await client.send_message(f"""Welcome to Space Breakers {member.mention}""")
 
 @client.event
@@ -37,6 +48,12 @@ async def on_message(message):
     id = client.get_guild(599461294428520490)
     channels = ["test", "bot-spam", "bot-spam-2", "test-2", "welcome"]
     valid_users = ["thefluffyoshi#6195", "friend#5869", "adria#9936", "silver~#2010", "raisinbran#6564", "clxudy#6666"]
+
+    if message.content == "/help":
+        embed = discord.Embed(title ="Help for BOT", description = "Working and useful commands")
+        embed.add_field(name="/hello", value="Greets user")
+        embed.add_field(name="/users", value="Prints number of users")
+        await message.channel.send(content=None, embed=embed)
 
     if str(message.channel) in channels and str(message.author) in valid_users:
         if message.content.find("/hello") != -1:
